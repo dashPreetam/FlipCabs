@@ -39,8 +39,8 @@ public class Main {
 
     static void driverSection() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n\nDrivers section");
-        System.out.println("\n\n\n\n");
+        System.out.println("\n\n\n\nDrivers section");
+        System.out.println("\n\n");
         System.out.println("1. Add Driver ");
         System.out.println("2. View All Drivers ");
         System.out.println("3. Change Driver Status ");
@@ -67,7 +67,7 @@ public class Main {
                 changeDriverStatus();
                 break;
             default:
-                System.out.println("Wrong Choice!!");
+                System.out.println("\n\nWrong Choice!!");
 
         }
     }
@@ -77,7 +77,7 @@ public class Main {
         Driver driver = new Driver();
 
         try {
-            System.out.print("Name :");
+            System.out.print("\n\nName :");
             String name = scanner.nextLine();
             driver.setName(name);
             driver.setAvgRating(5.0);
@@ -98,14 +98,14 @@ public class Main {
         try {
             System.out.print("Enter name :");
             String name = scanner.nextLine();
-            System.out.print("Enter status :");
+            System.out.print("Enter online status :");
             boolean online = scanner.nextBoolean();
 
             Driver driver = allDrivers.get(name);
             driver.setIsOnline(online);
 
             allDrivers.replace(name, driver);
-            System.out.println("Status  updated.");
+            System.out.println("\nStatus  updated.");
 
         } catch (Exception e) {
             System.out.println("ERROR Changing Status");
@@ -154,9 +154,9 @@ public class Main {
             customer.setAvgRating(5.0);
 
             allCustomers.put(customer.getName(), customer);
-            System.out.println("Driver added..");
+            System.out.println("Customer added..");
         } catch (Exception e) {
-            System.out.println("ERROR ADDING DRIVER");
+            System.out.println("ERROR ADDING CUSTOMER");
         }
 
 
