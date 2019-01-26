@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        init();
+        //init();
 
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -30,6 +30,8 @@ public class Main {
                 case 2:
                     customerSection();
                     break;
+                case 99:
+                    System.out.println("Terminated...");;break;
                 default:
                     System.out.println("Wrong choice !!");
             }
@@ -44,6 +46,7 @@ public class Main {
         System.out.println("1. Add Driver ");
         System.out.println("2. View All Drivers ");
         System.out.println("3. Change Driver Status ");
+        System.out.println("4. Give Rating to Customer ");
 
 
         System.out.print("Choice :");
@@ -57,7 +60,7 @@ public class Main {
                 System.out.println("\n All Driver :");
                 if (!allDrivers.isEmpty())
                     for (String driver : allDrivers.keySet()) {
-                        System.out.println("Name: " + allDrivers.get(driver).getName() + " isOnline : " + allDrivers.get(driver).getisOnline() + " Rating: " + allDrivers.get(driver).getAvgRating());
+                        System.out.println("Name: " + allDrivers.get(driver).getName() + "\tisOnline: " + allDrivers.get(driver).getisOnline() + "\tRating: " + allDrivers.get(driver).getAvgRating());
                     }
                 else
                     System.out.println("No drivers added yet");
@@ -66,6 +69,7 @@ public class Main {
             case 3:
                 changeDriverStatus();
                 break;
+            case 4: giveRatingToCustomer();
             default:
                 System.out.println("\n\nWrong Choice!!");
 
@@ -96,7 +100,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         try {
-            System.out.print("Enter name :");
+            System.out.print("\n\nEnter name :");
             String name = scanner.nextLine();
             System.out.print("Enter online status :");
             boolean online = scanner.nextBoolean();
@@ -113,11 +117,39 @@ public class Main {
 
     }
 
+    static void giveRatingToCustomer(){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Driver name: ");
+        String driverName = scanner.nextLine();
+        System.out.println("Customer name : ");
+        String custName = scanner.nextLine();
+        System.out.println("Rating : ");
+        double rating = scanner.nextDouble();
+
+        if(!allCustomers.containsKey(custName)||!allDrivers.containsKey(driverName)){
+            System.out.println("INVALID NAME");
+        }
+        else
+        {
+            Customer customer = allCustomers.get(custName);
+            Driver driver = allDrivers.get(driverName);
+
+            customer.setHasRodeWith(driver,rating);
+            System.out.println("Rating Updated");
+        }
+
+        Customer customer = allCustomers.get(custName);
+        System.out.println("Customer avg rating :"+customer.getAvgRating());
+
+    }
+
     static void customerSection() {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n\nCustomer section");
-        System.out.println("\n\n\n\n");
+        System.out.println("\n\n\n\nCustomer section");
+        System.out.println("\n\n");
         System.out.println("1. Add Customer ");
         System.out.println("2. Book Cab ");
         System.out.println("3. Give Rating to Driver ");
@@ -134,7 +166,7 @@ public class Main {
                 bookCab();
                 break;
             case 3:
-                giveRating();
+                giveRatingToDriver();
                 break;
             default:
                 System.out.println("Wrong Choice!!");
@@ -148,7 +180,7 @@ public class Main {
         Customer customer = new Customer();
 
         try {
-            System.out.print("Name :");
+            System.out.print("\n\nName :");
             String name = scanner.nextLine();
             customer.setName(name);
             customer.setAvgRating(5.0);
@@ -166,7 +198,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter Customer name :");
+        System.out.println("\n\nEnter Customer name :");
         String custName = sc.nextLine();
 
         Customer customer = allCustomers.get(custName);
@@ -202,7 +234,7 @@ public class Main {
         }
     }
 
-    static void giveRating(){
+    static void giveRatingToDriver(){
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Customer name: ");
@@ -221,6 +253,7 @@ public class Main {
             Driver driver = allDrivers.get(driverName);
 
             driver.setCustRatings(customer,rating);
+            System.out.println("Rating Updated");
         }
     }
 
