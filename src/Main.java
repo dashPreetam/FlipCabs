@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //init();
+        init();
 
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -19,6 +19,7 @@ public class Main {
         do {
             System.out.println("\n1. Driver menu ");
             System.out.println("2. Customer menu ");
+            System.out.println("3. Feedbacks ");
             System.out.println("\n99. Exit");
             System.out.print("\n\nChoice :");
             choice = scanner.nextInt();
@@ -30,12 +31,43 @@ public class Main {
                 case 2:
                     customerSection();
                     break;
+                case 3:
+                    feedbacks();
+                    break;
                 case 99:
                     System.out.println("Terminated...");;break;
                 default:
                     System.out.println("Wrong choice !!");
             }
         } while (choice != 99);
+
+    }
+
+    static void feedbacks(){
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter feedback in following pattern <driver>< ><rating>< ><customer>< ><rating>");
+        String feedbackString = scanner.nextLine();
+        feedbackString.trim();
+        String feedBackArray[] = feedbackString.split(" ");
+        String custName = feedBackArray[2];
+        String driverName = feedBackArray[0];
+        double driverRating  = Integer.valueOf(feedBackArray[1]);
+        double custRating  = Integer.valueOf(feedBackArray[3]);
+
+        if(!allCustomers.containsKey(custName)||!allDrivers.containsKey(driverName)){
+            System.out.println("INVALID NAME");
+        }
+        else
+        {
+            Customer customer = allCustomers.get(custName);
+            Driver driver = allDrivers.get(driverName);
+
+            customer.setHasRodeWith(driver,driverRating);
+            driver.setCustRatings(customer,custRating);
+            System.out.println("Rating Updated");
+        }
 
     }
 
